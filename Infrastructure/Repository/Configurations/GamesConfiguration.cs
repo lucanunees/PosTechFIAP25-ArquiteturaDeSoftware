@@ -11,7 +11,7 @@ namespace Infrastructure.Repository.Configurations
         {
             builder.ToTable("Games"); // Nome da tabela no banco de dados
             builder.HasKey(c => c.Id); // Chave primária
-            builder.Property(c => c.Id).HasColumnType("INT").ValueGeneratedNever().UseIdentityColumn(); // define o tipo da coluna como INT, utilizando o value generated never para não gerar valor automaticamente (Iddentity).
+            builder.Property(c => c.Id).HasColumnType("INT").UseIdentityColumn(); // define o tipo da coluna como INT, utilizando o value generated never para não gerar valor automaticamente (Iddentity).
             builder.Property(c => c.CreateAt).HasColumnType("DATETIME").IsRequired(); // Propriedade obrigatória e do tipo DATETIME.
             builder.Property(c => c.Name).HasColumnType("VARCHAR(100)").IsRequired();  // Propriedade do tipo varchar.
             builder.Property(c => c.Price).HasColumnType("DECIMAL(10, 2)").IsRequired();
