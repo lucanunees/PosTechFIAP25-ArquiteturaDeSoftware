@@ -1,6 +1,7 @@
 ﻿using Core.Entity;
 using Core.Input;
 using Core.Repository;
+using Infrastructure.Middleware;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FiapCloudGames.Controllers
@@ -10,10 +11,12 @@ namespace FiapCloudGames.Controllers
     public class GamesController : ControllerBase
     {
         private readonly IGamesRepository _gamesRepository;
+        private readonly LoggerBase<GamesController> _logger;
 
-        public GamesController(IGamesRepository gamesRepository)
+        public GamesController(IGamesRepository gamesRepository, LoggerBase<GamesController> logger)
         {
             _gamesRepository = gamesRepository;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -32,10 +35,13 @@ namespace FiapCloudGames.Controllers
 
                 _gamesRepository.Create(game);
 
+                _logger.LogInformation($"Novo jogo incluído com sucesso.[ {game.Name} ]");
+
                 return Ok();
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Erro na inclusão do novo jogo. [ {ex.Message} ]");
 
                 return BadRequest(ex);
             }
