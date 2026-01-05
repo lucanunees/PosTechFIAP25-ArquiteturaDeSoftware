@@ -10,7 +10,7 @@ namespace Infrastructure.Repository.Configurations
         {
             builder.ToTable("Order");
             builder.HasKey(c => c.Id);
-            builder.Property(c => c.Id).HasColumnType("INT").ValueGeneratedNever().UseIdentityColumn();
+            builder.Property(c => c.Id).HasColumnType("INT").UseIdentityColumn();
             builder.Property(c => c.CreateAt).HasColumnType("DATETIME").IsRequired();
             builder.Property(c => c.CustomerId).HasColumnType("INT").IsRequired();
             builder.Property(c => c.GameId).HasColumnType("INT").IsRequired();
@@ -18,10 +18,12 @@ namespace Infrastructure.Repository.Configurations
             //Um cliente com vários pedidos e a chave estrangeira é CustomerId (Id).
             builder.HasOne(c => c.Customer)
                    .WithMany(o => o.Orders)
+                   .HasForeignKey(c => c.CustomerId)
                    .HasPrincipalKey(o => o.Id);
 
             builder.HasOne(c => c.Game)
                    .WithMany(o => o.Orders)
+                   .HasForeignKey(c => c.GameId)
                    .HasPrincipalKey(o => o.Id);
         }
     }
