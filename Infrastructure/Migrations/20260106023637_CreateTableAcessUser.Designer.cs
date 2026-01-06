@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260105051120_CreateNewTable")]
-    partial class CreateNewTable
+    [Migration("20260106023637_CreateTableAcessUser")]
+    partial class CreateTableAcessUser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,34 @@ namespace Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Core.Entity.AcessUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INT");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("DATETIME");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(100)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(50)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AcessUser", (string)null);
+                });
 
             modelBuilder.Entity("Core.Entity.Category", b =>
                 {
@@ -80,26 +108,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("Customer", (string)null);
                 });
 
-            modelBuilder.Entity("Core.Entity.DevelopedBy", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INT");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreateAt")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DevelopedBy", (string)null);
-                });
-
             modelBuilder.Entity("Core.Entity.Games", b =>
                 {
                     b.Property<int>("Id")
@@ -118,10 +126,6 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("VARCHAR(1000)");
 
-                    b.Property<string>("DevelopedById")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(1000)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("VARCHAR(100)");
@@ -136,8 +140,6 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("DevelopedById");
 
                     b.ToTable("Games", (string)null);
                 });
@@ -176,15 +178,7 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Entity.DevelopedBy", "Developed")
-                        .WithMany()
-                        .HasForeignKey("DevelopedById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Category");
-
-                    b.Navigation("Developed");
                 });
 
             modelBuilder.Entity("Core.Entity.Order", b =>

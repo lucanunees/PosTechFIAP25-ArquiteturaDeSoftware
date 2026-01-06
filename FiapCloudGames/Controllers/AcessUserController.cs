@@ -7,13 +7,13 @@ namespace FiapCloudGames.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class GamesController : ControllerBase
+    public class AcessUserController : ControllerBase
     {
-        private readonly IGamesRepository _gamesRepository;
+        private readonly IAcessUserRepository _acessUserRepository;
 
-        public GamesController(IGamesRepository gamesRepository)
+        public AcessUserController(IAcessUserRepository acessUserRepository)
         {
-            _gamesRepository = gamesRepository;
+            _acessUserRepository = acessUserRepository;
         }
 
         [HttpGet]
@@ -21,8 +21,8 @@ namespace FiapCloudGames.Controllers
         {
             try
             {
-                var games = _gamesRepository.GetAll();
-                return Ok(games);
+                var acessUsers = _acessUserRepository.GetAll();
+                return Ok(acessUsers);
             }
             catch (Exception ex)
             {
@@ -35,12 +35,12 @@ namespace FiapCloudGames.Controllers
         {
             try
             {
-                var game = _gamesRepository.GetId(id);
-                if (game == null)
+                var acessUser = _acessUserRepository.GetId(id);
+                if (acessUser == null)
                 {
                     return NotFound();
                 }
-                return Ok(game);
+                return Ok(acessUser);
             }
             catch (Exception ex)
             {
@@ -48,28 +48,25 @@ namespace FiapCloudGames.Controllers
             }
         }
 
-
         [HttpPost]
-        public IActionResult Post([FromBody] GameInput input)
+        public IActionResult Post([FromBody] AcessUserInput input)
         {
             try
             {
-                var game = new Games()
+                var createUser = new AcessUser()
                 {
-                    Name = input.Name,
-                    Price = input.Price,
-                    Description = input.Description,
-                    CategoryId = input.CategoryId,
-                    ReleaseDate = input.ReleaseDate
+                    Username = input.Username, 
+                    Password = input.Password, 
+                    Email = input.Email
+
                 };
 
-                _gamesRepository.Create(game);
+                 _acessUserRepository.Create(createUser);
 
-                return Ok();
+                return CreatedAtAction(nameof(GetById), new { id = createUser.Id }, createUser);
             }
             catch (Exception ex)
             {
-
                 return BadRequest(ex);
             }
         }
