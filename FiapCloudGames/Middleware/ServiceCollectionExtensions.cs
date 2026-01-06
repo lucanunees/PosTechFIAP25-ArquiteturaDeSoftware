@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Infrastructure.Middleware
+namespace FiapCloudGames.Middleware
 {
     public static class ServiceCollectionExtensions
     {

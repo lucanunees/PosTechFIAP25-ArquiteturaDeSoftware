@@ -1,5 +1,5 @@
 using Core.Repository;
-using Infrastructure.Middleware;
+using FiapCloudGames.Middleware;
 using Infrastructure.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;

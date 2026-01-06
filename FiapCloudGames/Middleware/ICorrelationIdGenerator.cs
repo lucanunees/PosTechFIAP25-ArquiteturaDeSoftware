@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Middleware
+﻿namespace FiapCloudGames.Middleware
 {
     public interface ICorrelationIdGenerator
     {

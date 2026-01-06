@@ -1,7 +1,7 @@
 ﻿using Core.Entity;
 using Core.Input;
 using Core.Repository;
-using Infrastructure.Middleware;
+using FiapCloudGames.Middleware;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FiapCloudGames.Controllers

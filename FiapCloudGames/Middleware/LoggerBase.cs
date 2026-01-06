@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace Infrastructure.Middleware
+namespace FiapCloudGames.Middleware
 {
     public class LoggerBase<T>
     {
