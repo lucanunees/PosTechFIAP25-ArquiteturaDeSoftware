@@ -2,4 +2,19 @@
   <Project Path="Core/Core.csproj" Id="3f220c43-2617-42b4-906c-c573008da93c" />
   <Project Path="FiapCloudGames/FiapCloudGames.csproj" />
   <Project Path="Infrastructure/Infrastructure.csproj" Id="7b805770-061d-45c4-b6f2-603913fadd2d" />
+  <Folder Name="/src/">
+    <Project Path="..\..\..\..\..\..\..\..\Labs\PosDotNet\FiapCloudGames\Core\Core.csproj" />
+    <Project Path="..\..\..\..\..\..\..\..\Labs\PosDotNet\FiapCloudGames\FiapCloudGames\FiapCloudGames.csproj" />
+    <Project Path="..\..\..\..\..\..\..\..\Labs\PosDotNet\FiapCloudGames\Infrastructure\Infrastructure.csproj" />
+    <Project Path="Core\Core.csproj" />
+    <Project Path="FiapCloudGames\FiapCloudGames.csproj" />
+    <Project Path="Infrastructure\Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="..\..\..\..\..\..\..\..\Labs\PosDotNet\FiapCloudGames\FiapCloudGames.Tests.BDD\FiapCloudGames.Tests.BDD.csproj" Type="C#" />
+    <Project Path="FiapCloudGames.Tests.BDD\FiapCloudGames.Tests.BDD.csproj" Type="C#" />
+  </Folder>
+  <Properties Name="Visual Studio">
+    <Property Name="OpenWith" Value="17" />
+  </Properties>
 </Solution>
