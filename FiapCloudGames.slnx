@@ -1,5 +1,12 @@
 <Solution>
-  <Project Path="Core/Core.csproj" Id="3f220c43-2617-42b4-906c-c573008da93c" />
-  <Project Path="FiapCloudGames/FiapCloudGames.csproj" />
-  <Project Path="Infrastructure/Infrastructure.csproj" Id="7b805770-061d-45c4-b6f2-603913fadd2d" />
+  <Folder Name="/src/">
+    <Project Path="src/FiapCloudGames.API/FiapCloudGames.API.csproj" />
+    <Project Path="src/FiapCloudGames.Application/FiapCloudGames.Application.csproj" />
+    <Project Path="src/FiapCloudGames.Domain/FiapCloudGames.Domain.csproj" />
+    <Project Path="src/FiapCloudGames.Infrastructure/FiapCloudGames.Infrastructure.csproj" />
+    <Project Path="src/FiapCloudGames.IoC/FiapCloudGames.IoC.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+   
+  </Folder>
 </Solution>
