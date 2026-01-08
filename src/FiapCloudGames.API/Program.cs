@@ -46,7 +46,11 @@ builder.Services.AddSwaggerGen(options =>
 #region [Configura��o do Entity Framework e SQL Server]
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
+    //Configura a conexao com o banco de dados SQL Server Local
     options.UseSqlServer(configuration.GetConnectionString("ConnectionString"));
+
+    //Configura a conexao com o banco de dados SQL Server No Docker
+    //options.UseSqlServer(configuration.GetConnectionString("DockerConnectionString"));
 }, ServiceLifetime.Scoped);
 
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();

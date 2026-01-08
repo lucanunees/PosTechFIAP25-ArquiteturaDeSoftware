@@ -20,7 +20,11 @@ namespace Infrastructure.Repository
                 .AddJsonFile("appsettings.json")
                 .Build();
 
+            //Pega a connection string do arquivo appsettings.json para o banco local
             _connectionString = configuration.GetConnectionString("ConnectionString");
+
+            //Pega a connection string do arquivo appsettings.json para o banco no docker
+            //_connectionString = configuration.GetConnectionString("DockerConnectionString");
         }
 
         public ApplicationDbContext(string connectionString)
