@@ -30,20 +30,15 @@ builder.Services.AddSwaggerGen(options =>
         Description =
             "Plataforma de venda de jogos digitais e gest�o de servidores para partidas online \n\n" +
             "Contatos:\n\n" +
-            "� Jo�o Paulo\n" +
-            "� Lucas Nunes RM 369391\n" +
-            "� Marcos Antonio RM 368502\n" +
-            "� Oberdan RM 369592\n",
-        Contact = new OpenApiContact
-        {
-            Name = "Equipe FCG",
-            Email = "teste@teste.com"
-        },
-
+            "- Joao Paulo\n\n" +
+            "- Lucas Nunes RM 369391\n\n" +
+            "- Marcos Antonio RM 368502\n\n" +
+            "- David RM 369381\n\n" +
+            "- Oberdan RM 369592\n\n",
     });
 });
 
-#region [Configura��o do Entity Framework e SQL Server]
+#region [Configuracao do Entity Framework e SQL Server]
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     //Configura a conexao com o banco de dados SQL Server Local
@@ -61,7 +56,7 @@ builder.Services.AddScoped<IAcessUserRepository, AcessUserRepository>();
 #endregion
 
 
-#region [JWT] Configura��o do JWT
+#region [JWT] Configuracao do JWT
 
 builder.Services.AddAuthentication(options =>
 {
