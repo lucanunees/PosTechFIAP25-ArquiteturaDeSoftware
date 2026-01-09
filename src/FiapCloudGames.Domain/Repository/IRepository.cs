@@ -7,7 +7,7 @@ namespace Domain.Repository
     {
         // Summary: O <t> significa que é uma lista genérica.
         IList<T> GetAll();
-        T GetId(int id);
+        T GetById(int id);
         void Create(T entity);
         void Update(T entity);
         void Delete(int id);
