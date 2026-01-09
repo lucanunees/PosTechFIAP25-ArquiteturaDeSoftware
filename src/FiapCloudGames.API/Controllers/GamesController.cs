@@ -35,7 +35,7 @@ namespace FiapCloudGames.Controllers
         {
             try
             {
-                var game = _gamesRepository.GetId(id);
+                var game = _gamesRepository.GetById(id);
                 if (game == null)
                 {
                     return NotFound();
