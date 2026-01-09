@@ -2,6 +2,7 @@
 using Core.Input;
 using Core.Repository;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
 
 namespace FiapCloudGames.Controllers
 {
@@ -51,6 +52,10 @@ namespace FiapCloudGames.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] AcessUserInput input)
         {
+            //if (!ValidarDados(input, out var erro))
+            //{
+            //    return BadRequest(new { message = erro });
+            //}
             try
             {
                 var createUser = new AcessUser()
@@ -69,6 +74,28 @@ namespace FiapCloudGames.Controllers
             {
                 return BadRequest(ex);
             }
+        }
+
+
+        public bool ValidarDados(AcessUserInput input, out string mensagem)
+        {
+            var emailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+            var senhaRegex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$");
+
+            if (!emailRegex.IsMatch(input.Email))
+            {
+                mensagem = "Formato de e-mail inválido.";
+                return false;
+            }
+
+            if (!senhaRegex.IsMatch(input.Password))
+            {
+                mensagem = "A senha deve ter no mínimo 8 caracteres, incluindo letras, números e caracteres especiais.";
+                return false;
+            }
+
+            mensagem = "";
+            return true;
         }
     }
 }

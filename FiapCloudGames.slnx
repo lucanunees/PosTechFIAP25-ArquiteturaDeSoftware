@@ -13,6 +13,8 @@
   <Folder Name="/tests/">
     <Project Path="..\..\..\..\..\..\..\..\Labs\PosDotNet\FiapCloudGames\FiapCloudGames.Tests.BDD\FiapCloudGames.Tests.BDD.csproj" />
     <Project Path="FiapCloudGames.Tests.BDD\FiapCloudGames.Tests.BDD.csproj" />
+    <Project Path="..\..\..\..\..\..\..\..\Labs\PosDotNet\FiapCloudGames\FiapCloudGames.Tests.Unit\FiapCloudGames.Tests.Unit.csproj" Type="C#" />
+    <Project Path="FiapCloudGames.Tests.Unit\FiapCloudGames.Tests.Unit.csproj" />
   </Folder>
   <Properties Name="Visual Studio">
     <Property Name="OpenWith" Value="17" />
