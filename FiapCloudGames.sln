@@ -1,0 +1,47 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiapCloudGames.API", "src/FiapCloudGames.API/FiapCloudGames.API.csproj", "{GUID-1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiapCloudGames.Application", "src/FiapCloudGames.Application/FiapCloudGames.Application.csproj", "{GUID-2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiapCloudGames.Domain", "src/FiapCloudGames.Domain/FiapCloudGames.Domain.csproj", "{GUID-3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiapCloudGames.Infrastructure", "src/FiapCloudGames.Infrastructure/FiapCloudGames.Infrastructure.csproj", "{GUID-4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiapCloudGames.IoC", "src/FiapCloudGames.IoC/FiapCloudGames.IoC.csproj", "{GUID-5}"
+EndProject
+
+Global
+    GlobalSection(SolutionConfigurationPlatforms) = preSolution
+        Debug|Any CPU = Debug|Any CPU
+        Release|Any CPU = Release|Any CPU
+    EndGlobalSection
+    GlobalSection(ProjectConfigurationPlatforms) = postSolution
+        {GUID-1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {GUID-1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {GUID-1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {GUID-1}.Release|Any CPU.Build.0 = Release|Any CPU
+        {GUID-2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {GUID-2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {GUID-2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {GUID-2}.Release|Any CPU.Build.0 = Release|Any CPU
+        {GUID-3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {GUID-3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {GUID-3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {GUID-3}.Release|Any CPU.Build.0 = Release|Any CPU
+        {GUID-4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {GUID-4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {GUID-4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {GUID-4}.Release|Any CPU.Build.0 = Release|Any CPU
+        {GUID-5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {GUID-5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {GUID-5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {GUID-5}.Release|Any CPU.Build.0 = Release|Any CPU
+    EndGlobalSection
+    GlobalSection(SolutionProperties) = preSolution
+        HideSolutionNode = FALSE
+    EndGlobalSection
+EndGlobal
