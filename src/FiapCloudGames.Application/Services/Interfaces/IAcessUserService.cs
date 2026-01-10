@@ -1,5 +1,4 @@
 ﻿using Domain.Entity;
-using Domain.Repository;
 using Domain.Input;
 
 namespace FiapCloudGames.Application.Services.Interfaces

@@ -44,10 +44,5 @@ namespace FiapCloudGames.Application.Services
                 throw;
             }
         }
-
-
-
-
-
     }
 }

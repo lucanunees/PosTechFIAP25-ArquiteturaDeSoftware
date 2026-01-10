@@ -3,7 +3,7 @@ using Domain.Input;
 using Domain.Repository;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FiapCloudGames.Controllers
+namespace FiapCloudGames.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -47,7 +47,6 @@ namespace FiapCloudGames.Controllers
                 return BadRequest(ex);
             }
         }
-
 
         [HttpPost]
         public IActionResult Post([FromBody] GameInput input)
