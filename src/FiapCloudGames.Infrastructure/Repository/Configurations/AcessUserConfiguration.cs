@@ -15,6 +15,7 @@ namespace Infrastructure.Repository.Configurations
             builder.Property(c => c.Username).HasColumnType("VARCHAR(100)").IsRequired();
             builder.Property(c => c.Password).HasColumnType("VARCHAR(50)").IsRequired();
             builder.Property(c => c.Email).HasColumnType("VARCHAR(100)").IsRequired();
+            builder.Property(c => c.Role).HasColumnType("VARCHAR(20)").IsRequired();
 
         }
     }

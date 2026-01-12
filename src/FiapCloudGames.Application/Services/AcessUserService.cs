@@ -2,6 +2,7 @@
 using Domain.Input;
 using Domain.Repository;
 using FiapCloudGames.Application.Services.Interfaces;
+using FiapCloudGames.Domain.Enum;
 
 namespace FiapCloudGames.Application.Services
 {
@@ -33,7 +34,8 @@ namespace FiapCloudGames.Application.Services
                 {
                     Username = acessUser.Username,
                     Password = acessUser.Password,
-                    Email = acessUser.Email
+                    Email = acessUser.Email,
+                    Role = acessUser.Role
                 };
 
                 _acessUserRepository.Create(createUser);
