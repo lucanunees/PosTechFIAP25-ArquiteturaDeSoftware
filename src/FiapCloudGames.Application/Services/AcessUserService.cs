@@ -2,7 +2,7 @@
 using Domain.Input;
 using Domain.Repository;
 using FiapCloudGames.Application.Services.Interfaces;
-using FiapCloudGames.Domain.Enum;
+using Microsoft.AspNetCore.Identity;
 
 namespace FiapCloudGames.Application.Services
 {
@@ -30,10 +30,14 @@ namespace FiapCloudGames.Application.Services
         {
             try
             {
+                //Hash senha
+                var hasher = new PasswordHasher<IdentityUser>();
+                string passwordHash = hasher.HashPassword(null, acessUser.Password);
+
                 var createUser = new AcessUser()
                 {
                     Username = acessUser.Username,
-                    Password = acessUser.Password,
+                    Password = passwordHash,
                     Email = acessUser.Email,
                     Role = acessUser.Role
                 };

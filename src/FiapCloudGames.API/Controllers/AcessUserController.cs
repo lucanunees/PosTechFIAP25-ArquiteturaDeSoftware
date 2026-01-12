@@ -1,4 +1,5 @@
-﻿using Domain.Input;
+﻿using Domain.Entity;
+using Domain.Input;
 using FiapCloudGames.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -48,11 +49,17 @@ namespace FiapCloudGames.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] AcessUserInput input)
+        public async Task<IActionResult> Post([FromBody] AcessUserInput input)
         {
+            var users = await _acessUserService.GetAllUsers();
+            var user = users.FirstOrDefault(u => u.Username == input.Username && u.Email == input.Email);
+
+            if (user != null)
+                return BadRequest(new { message = "Usuário já está cadastrado!" });
+
             try
             {
-                var createdUser =  _acessUserService.CreateAcessUser(input);
+                var createdUser = await _acessUserService.CreateAcessUser(input);
                 return CreatedAtAction(nameof(GetById), new { id = createdUser.Id }, createdUser);
             }
             catch (Exception ex)

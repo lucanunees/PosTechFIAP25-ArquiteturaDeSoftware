@@ -4,6 +4,6 @@ namespace FiapCloudGames.Application.Services.Interfaces
 {
     public interface ITokenService
     {
-        string GenereteToken(AcessUser user, string role);
+        string GenereteToken(AcessUser user);
     }
 }

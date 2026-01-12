@@ -10,7 +10,7 @@ namespace FiapCloudGames.Application.Services
 {
     public class TokenService(IConfiguration configuration) : ITokenService
     {
-        public string GenereteToken(AcessUser user, string role)
+        public string GenereteToken(AcessUser user)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -19,7 +19,7 @@ namespace FiapCloudGames.Application.Services
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Username),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(ClaimTypes.Role, role),
+                new Claim(ClaimTypes.Role, user.Role.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 

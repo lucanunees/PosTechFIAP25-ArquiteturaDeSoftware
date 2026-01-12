@@ -1,4 +1,6 @@
 using Domain.Repository;
+using FiapCloudGames.Application.Services;
+using FiapCloudGames.Application.Services.Interfaces;
 using Infrastructure.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -57,6 +59,9 @@ builder.Services.AddScoped<IGamesRepository, GamesRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IAcessUserRepository, AcessUserRepository>();
+builder.Services.AddScoped<IAcessUserService, AcessUserService>();
+builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 #endregion
 
 

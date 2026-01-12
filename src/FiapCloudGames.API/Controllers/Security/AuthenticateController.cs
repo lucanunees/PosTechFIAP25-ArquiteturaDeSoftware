@@ -1,5 +1,6 @@
 ﻿using Domain.Input;
 using FiapCloudGames.Application.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FiapCloudGames.Controllers.Security
@@ -14,14 +15,16 @@ namespace FiapCloudGames.Controllers.Security
         public async Task<IActionResult> Login(AcessUserInput acessUser)
         {
             var users = await userService.GetAllUsers();
-            var user = users.FirstOrDefault(u => u.Username == acessUser.Username && u.Password == acessUser.Password);
+            var user = users.FirstOrDefault(u => u.Username == acessUser.Username && u.Email == acessUser.Email);
 
-            if (user == null)
+            var hasher = new PasswordHasher<object>();
+            var resultado = hasher.VerifyHashedPassword(null, user.Password, acessUser.Password);
+
+
+            if (resultado == PasswordVerificationResult.Failed)
                 return Unauthorized(new { message = "Usuário ou senha inválidos" });
 
-            var role = user.Username == "admin" ? "Admin" : "User";
-
-            var token = tokenService.GenereteToken(user, role);
+            var token = tokenService.GenereteToken(user);
 
             return Ok(new
             {
