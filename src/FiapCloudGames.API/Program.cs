@@ -2,6 +2,7 @@ using FiapCloudGames.Application.Services;
 using FiapCloudGames.Application.Services.Interfaces;
 using FiapCloudGames.Domain.Repository;
 using FiapCloudGames.Infrastructure.Repository;
+using FiapCloudGames.Middleware;
 using Infrastructure.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -127,3 +128,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+#region [Middleware]
+builder.Services.AddCorrelationIdGenerator();
+builder.Services.AddTransient(typeof(LoggerBase<>));
+#endregion
