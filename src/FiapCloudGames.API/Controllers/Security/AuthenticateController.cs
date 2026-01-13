@@ -1,56 +1,37 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+﻿using Domain.Input;
+using FiapCloudGames.Application.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FiapCloudGames.Controllers.Security
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AuthenticateController(IConfiguration configuration) : ControllerBase
+    public class AuthenticateController(IAcessUserService userService,
+    ITokenService tokenService) : ControllerBase
     {
-        private readonly IConfiguration _configuration = configuration;
 
         [HttpPost("login")]
-        public IActionResult Login(string username, string password)
+        public async Task<IActionResult> Login(AcessUserInput acessUser)
         {
-            if (username == "admin" && password == "admin")
-            {
-                var token = GenerateToken(username, "Admin");
-                return Ok(new { token });
-            }
-            else if (username == "user" && password == "user")
-            {
-                var token = GenerateToken(username, "User");
-                return Ok(new { token });
-            }
-            else
-            {
-                return Unauthorized();
-            }
-        }
+            var users = await userService.GetAllUsers();
+            var user = users.FirstOrDefault(u => u.Username == acessUser.Username && u.Email == acessUser.Email);
 
-        private string GenerateToken(string username, string role)
-        {
-            var claims = new[]
+            var hasher = new PasswordHasher<object>();
+            var resultado = hasher.VerifyHashedPassword(null, user.Password, acessUser.Password);
+
+
+            if (resultado == PasswordVerificationResult.Failed)
+                return Unauthorized(new { message = "Usuário ou senha inválidos" });
+
+            var token = tokenService.GenereteToken(user);
+
+            return Ok(new
             {
-                    new Claim(JwtRegisteredClaimNames.Sub, username),
-                    new Claim(ClaimTypes.Role, role),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-                };
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var token = new JwtSecurityToken(
-                issuer: _configuration["Jwt:Issuer"],
-                audience: _configuration["Jwt:Audience"],
-                claims: claims,
-                expires: DateTime.Now.AddMinutes(30),
-                signingCredentials: creds
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
+                authenticated = true,
+                token,
+                expiration = DateTime.UtcNow.AddMinutes(60)
+            });
         }
     }
 }
