@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Entity;
 
-namespace Domain.Entity
+namespace FiapCloudGames.Domain.Entity
 {
     public class Games : EntityBase
     {

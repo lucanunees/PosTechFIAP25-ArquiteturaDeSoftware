@@ -1,5 +1,5 @@
-﻿using Domain.Entity;
-using Domain.Input;
+﻿using FiapCloudGames.Domain.Entity;
+using FiapCloudGames.Domain.Request;
 
 namespace FiapCloudGames.Application.Services.Interfaces
 {
@@ -9,7 +9,7 @@ namespace FiapCloudGames.Application.Services.Interfaces
 
         Task<AcessUser> GetUserById(int id);
 
-        Task<AcessUser> CreateAcessUser(AcessUserInput acessUser);
+        Task<AcessUser> CreateAcessUser(UserRequest acessUser);
 
     }
 }

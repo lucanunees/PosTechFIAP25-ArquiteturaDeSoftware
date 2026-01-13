@@ -1,19 +1,18 @@
-﻿using Domain.Entity;
-using Domain.Input;
-using Domain.Repository;
+﻿using FiapCloudGames.Application.Services.Interfaces;
+using FiapCloudGames.Domain.Request;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FiapCloudGames.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class GamesController : ControllerBase
     {
-        private readonly IGamesRepository _gamesRepository;
+        private readonly IGameService _gamesService;
 
-        public GamesController(IGamesRepository gamesRepository)
+        public GamesController(IGameService gamesService)
         {
-            _gamesRepository = gamesRepository;
+            _gamesService = gamesService;
         }
 
         [HttpGet]
@@ -21,7 +20,7 @@ namespace FiapCloudGames.API.Controllers
         {
             try
             {
-                var games = _gamesRepository.GetAll();
+                var games = _gamesService.GetAll();
                 return Ok(games);
             }
             catch (Exception ex)
@@ -35,7 +34,7 @@ namespace FiapCloudGames.API.Controllers
         {
             try
             {
-                var game = _gamesRepository.GetById(id);
+                var game = _gamesService.GetGameById(id);
                 if (game == null)
                 {
                     return NotFound();
@@ -49,20 +48,20 @@ namespace FiapCloudGames.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] GameInput input)
+        public IActionResult Post([FromBody] GameRequest request)
         {
             try
             {
-                var game = new Games()
+                var game = new GameRequest()
                 {
-                    Name = input.Name,
-                    Price = input.Price,
-                    Description = input.Description,
-                    CategoryId = input.CategoryId,
-                    ReleaseDate = input.ReleaseDate
+                    Name = request.Name,
+                    Price = request.Price,
+                    Description = request.Description,
+                    CategoryId = request.CategoryId,
+                    ReleaseDate = request.ReleaseDate
                 };
 
-                _gamesRepository.Create(game);
+                _gamesService.CreateGame(game);
 
                 return Ok();
             }

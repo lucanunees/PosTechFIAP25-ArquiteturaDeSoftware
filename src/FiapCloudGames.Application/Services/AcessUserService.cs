@@ -1,7 +1,7 @@
-﻿using Domain.Entity;
-using Domain.Input;
-using Domain.Repository;
-using FiapCloudGames.Application.Services.Interfaces;
+﻿using FiapCloudGames.Application.Services.Interfaces;
+using FiapCloudGames.Domain.Entity;
+using FiapCloudGames.Domain.Repository;
+using FiapCloudGames.Domain.Request;
 using Microsoft.AspNetCore.Identity;
 
 namespace FiapCloudGames.Application.Services
@@ -26,20 +26,20 @@ namespace FiapCloudGames.Application.Services
             return user;
         }
 
-        public async Task<AcessUser> CreateAcessUser(AcessUserInput acessUser)
+        public async Task<AcessUser> CreateAcessUser(UserRequest request)
         {
             try
             {
                 //Hash senha
                 var hasher = new PasswordHasher<IdentityUser>();
-                string passwordHash = hasher.HashPassword(null, acessUser.Password);
+                string passwordHash = hasher.HashPassword(null, request.Password);
 
                 var createUser = new AcessUser()
                 {
-                    Username = acessUser.Username,
+                    Username = request.Username,
                     Password = passwordHash,
-                    Email = acessUser.Email,
-                    Role = acessUser.Role
+                    Email = request.Email,
+                    Role = request.Role
                 };
 
                 _acessUserRepository.Create(createUser);

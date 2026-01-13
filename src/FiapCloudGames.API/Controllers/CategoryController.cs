@@ -1,19 +1,18 @@
-﻿using Domain.Entity;
-using Domain.Input;
-using Domain.Repository;
+﻿using FiapCloudGames.Application.Services.Interfaces;
+using FiapCloudGames.Domain.Request;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FiapCloudGames.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class CategoryController : ControllerBase
     {
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly ICategoryService _categoryService;
 
-        public CategoryController(ICategoryRepository categoryRepository)
+        public CategoryController(ICategoryService categoryService)
         {
-            _categoryRepository = categoryRepository;
+            _categoryService = categoryService;
         }
 
         [HttpGet]
@@ -21,7 +20,7 @@ namespace FiapCloudGames.API.Controllers
         {
             try
             {
-                var category = _categoryRepository.GetAll();
+                var category = _categoryService.GetAll();
                 return Ok(category);
             }
             catch (Exception ex)
@@ -35,7 +34,7 @@ namespace FiapCloudGames.API.Controllers
         {
             try
             {
-                var category = _categoryRepository.GetById(id);
+                var category = _categoryService.GetCategoryById(id);
                 if (category == null)
                 {
                     return NotFound();
@@ -49,17 +48,17 @@ namespace FiapCloudGames.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] CategoryInput input)
+        public IActionResult Post([FromBody] CategoryRequest request)
         {
             try
             {
-                var category = new Category()
+                var category = new CategoryRequest()
                 {
-                    Name = input.Name,
-                    Description = input.Description
+                    Name = request.Name,
+                    Description = request.Description
                 };
 
-                _categoryRepository.Create(category);
+                _categoryService.CreateCategory(category);
 
                 return Ok();
             }

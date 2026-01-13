@@ -1,7 +1,7 @@
-﻿using Domain.Entity;
-using Domain.Input;
-using Domain.Repository;
-using FiapCloudGames.Application.Services.Interfaces;
+﻿using FiapCloudGames.Application.Services.Interfaces;
+using FiapCloudGames.Domain.Entity;
+using FiapCloudGames.Domain.Repository;
+using FiapCloudGames.Domain.Request;
 
 namespace FiapCloudGames.Application.Services
 {
@@ -14,7 +14,7 @@ namespace FiapCloudGames.Application.Services
             _gamesRepository = gamesRepository;
         }
 
-        public async Task<Games> CreateGame(GameInput game)
+        public async Task<Games> CreateGame(GameRequest game)
         {
             try
             {

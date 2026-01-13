@@ -1,8 +1,9 @@
-﻿using Domain.Entity;
-using Domain.Repository;
+﻿using FiapCloudGames.Domain.Entity;
+using FiapCloudGames.Domain.Repository;
+using Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Repository
+namespace FiapCloudGames.Infrastructure.Repository
 {
     public class EFRepository<T> : IRepository<T> where T : EntityBase
     {

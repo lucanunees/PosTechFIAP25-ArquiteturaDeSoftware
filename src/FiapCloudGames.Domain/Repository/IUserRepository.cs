@@ -2,7 +2,7 @@
 
 namespace FiapCloudGames.Domain.Repository
 {
-    public interface IGamesRepository : IRepository<Games>
+    public interface IUserRepository : IRepository<User>
     {
     }
 }

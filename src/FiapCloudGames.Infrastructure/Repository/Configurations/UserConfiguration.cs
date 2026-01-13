@@ -2,11 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Repository.Configurations
+namespace FiapCloudGames.Infrastructure.Repository.Configurations
 {
-    public class AcessUserConfiguration : IEntityTypeConfiguration<AcessUser>
+    public class UserConfiguration : IEntityTypeConfiguration<User>
     {
-        public void Configure(EntityTypeBuilder<AcessUser> builder)
+        public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.ToTable("AcessUser");
             builder.HasKey(c => c.Id);

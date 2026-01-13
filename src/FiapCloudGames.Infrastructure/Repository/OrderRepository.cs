@@ -1,7 +1,8 @@
-﻿using Domain.Entity;
-using Domain.Repository;
+﻿using FiapCloudGames.Domain.Entity;
+using FiapCloudGames.Domain.Repository;
+using Infrastructure.Repository;
 
-namespace Infrastructure.Repository
+namespace FiapCloudGames.Infrastructure.Repository
 {
     public class OrderRepository : EFRepository<Order>, IOrderRepository
     {
