@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FiapCloudGames.Controllers.Security
+namespace FiapCloudGames.API.Controllers.Security
 {
     public class SecureController : ControllerBase
     {

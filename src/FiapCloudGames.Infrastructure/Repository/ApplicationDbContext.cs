@@ -1,4 +1,4 @@
-﻿using Domain.Entity;
+﻿using FiapCloudGames.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 

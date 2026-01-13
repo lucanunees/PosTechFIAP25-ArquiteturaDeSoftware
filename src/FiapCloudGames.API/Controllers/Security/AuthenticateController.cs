@@ -1,18 +1,18 @@
-﻿using Domain.Input;
-using FiapCloudGames.Application.Services.Interfaces;
+﻿using FiapCloudGames.Application.Services.Interfaces;
+using FiapCloudGames.Domain.Request;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FiapCloudGames.Controllers.Security
+namespace FiapCloudGames.API.Controllers.Security
 {
     [ApiController]
-    [Route("api/[controller]")]
-    public class AuthenticateController(IAcessUserService userService,
+    [Route("[controller]")]
+    public class AuthenticateController(IUserService userService,
     ITokenService tokenService) : ControllerBase
     {
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(AcessUserInput acessUser)
+        public async Task<IActionResult> Login(UserRequest acessUser)
         {
             var users = await userService.GetAllUsers();
             var user = users.FirstOrDefault(u => u.Username == acessUser.Username && u.Email == acessUser.Email);

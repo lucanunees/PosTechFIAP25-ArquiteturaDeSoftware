@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Domain.Entity;
+using FiapCloudGames.Domain.Entity;
 
-namespace Domain.Repository
+namespace FiapCloudGames.Domain.Repository
 {
     public interface IRepository<T> where T : EntityBase
     {

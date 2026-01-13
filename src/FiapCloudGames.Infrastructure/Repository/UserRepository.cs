@@ -4,9 +4,9 @@ using Infrastructure.Repository;
 
 namespace FiapCloudGames.Infrastructure.Repository
 {
-    public class CustomerRepository : EFRepository<Customer>, ICustomerRepository
+    public class UserRepository : EFRepository<User>, IUserRepository
     {
-        public CustomerRepository(ApplicationDbContext context) : base(context)
+        public UserRepository(ApplicationDbContext context) : base(context)
         {
         }
     }

@@ -1,6 +1,6 @@
-﻿using Domain.Entity;
+﻿using FiapCloudGames.Domain.Entity;
 
-namespace Domain.Repository
+namespace FiapCloudGames.Domain.Repository
 {
     public interface ICustomerRepository : IRepository<Customer>
     {
