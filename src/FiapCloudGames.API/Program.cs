@@ -1,15 +1,25 @@
 using Domain.Repository;
+using FiapCloudGames;
 using FiapCloudGames.Application.Services;
 using FiapCloudGames.Application.Services.Interfaces;
 using Infrastructure.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System.Text;
 using System.Text.Json.Serialization;
 
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog();
 
 #region [Configuration do appsettings.json BD]
 // pega as configura��es do arquivo appsettings.json de conexao com o banco de dados.
@@ -114,10 +124,35 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseHttpsRedirection();
+app.UseExceptionHandler(errorApp =>
+{
+    errorApp.Run(async context =>
+    {
+        var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
 
+        // Registrar o erro com o Serilog
+        Log.Error(exception, "An unhandled exception occurred.");
+
+        context.Response.ContentType = "application/json";
+        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+
+        await context.Response.WriteAsJsonAsync(new
+        {
+            StatusCode = context.Response.StatusCode,
+            Message = "An unexpected error occurred. Please try again later."
+        });
+    });
+});
+app.UseMiddleware<LogMiddleware>();
+app.UseHttpsRedirection();
+app.UseSerilogRequestLogging();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapGet("/error-test", () =>
+{
+    throw new Exception("This is a test exception.");
+});
 
 app.Run();
