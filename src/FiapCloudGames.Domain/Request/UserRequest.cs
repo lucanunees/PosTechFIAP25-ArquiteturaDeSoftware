@@ -1,9 +1,9 @@
 ﻿using FiapCloudGames.Domain.Enum;
 using System.ComponentModel.DataAnnotations;
 
-namespace Domain.Input
+namespace FiapCloudGames.Domain.Request
 {
-    public class AcessUserInput
+    public class UserRequest
     {
         [Required(ErrorMessage = "O username é obrigatório.")]
         [StringLength(100, MinimumLength = 3, ErrorMessage = "O nome deve ter entre 3 e 100 caracteres.")]

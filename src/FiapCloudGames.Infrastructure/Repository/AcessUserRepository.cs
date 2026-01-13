@@ -1,5 +1,6 @@
-﻿using Domain.Entity;
-using Domain.Repository;
+﻿using FiapCloudGames.Domain.Entity;
+using FiapCloudGames.Domain.Repository;
+using FiapCloudGames.Infrastructure.Repository;
 
 namespace Infrastructure.Repository
 {

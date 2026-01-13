@@ -1,8 +1,8 @@
-﻿using Domain.Entity;
+﻿using FiapCloudGames.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Repository.Configurations
+namespace FiapCloudGames.Infrastructure.Repository.Configurations
 {
     public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
     {

@@ -1,5 +1,5 @@
-﻿using Domain.Entity;
-using FiapCloudGames.Application.Services.Interfaces;
+﻿using FiapCloudGames.Application.Services.Interfaces;
+using FiapCloudGames.Domain.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -10,7 +10,7 @@ namespace FiapCloudGames.Application.Services
 {
     public class TokenService(IConfiguration configuration) : ITokenService
     {
-        public string GenereteToken(AcessUser user)
+        public string GenereteToken(User user)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

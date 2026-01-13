@@ -1,4 +1,4 @@
-﻿namespace Domain.Entity
+﻿namespace FiapCloudGames.Domain.Entity
 {
     public class Category : EntityBase
     {
