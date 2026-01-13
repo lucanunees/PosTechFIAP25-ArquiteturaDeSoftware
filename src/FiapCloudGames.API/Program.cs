@@ -33,7 +33,6 @@ var configuration = new ConfigurationBuilder()
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -58,10 +57,10 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     //Configura a conexao com o banco de dados SQL Server Local
-    options.UseSqlServer(configuration.GetConnectionString("ConnectionString"));
+    //options.UseSqlServer(configuration.GetConnectionString("ConnectionString"));
 
     //Configura a conexao com o banco de dados SQL Server No Docker
-    //options.UseSqlServer(configuration.GetConnectionString("DockerConnectionString"));
+    options.UseSqlServer(configuration.GetConnectionString("DockerConnectionString"));
 }, ServiceLifetime.Scoped);
 
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
@@ -76,6 +75,13 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 
 
 #region [JWT] Configuracao do JWT
+
+// Adicione uma validação para garantir que a chave JWT não seja nula
+var jwtKey = builder.Configuration["Jwt:Key"];
+if (string.IsNullOrEmpty(jwtKey))
+{
+    throw new InvalidOperationException("A chave JWT não foi configurada. Verifique o arquivo appsettings.json.");
+}
 
 builder.Services.AddAuthentication(options =>
 {
@@ -92,7 +98,7 @@ builder.Services.AddAuthentication(options =>
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
     };
 });
 
@@ -100,8 +106,6 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
 });
-
-builder.Services.AddControllers();
 
 
 #endregion
@@ -143,13 +147,26 @@ app.UseExceptionHandler(errorApp =>
         });
     });
 });
-app.UseMiddleware<LogMiddleware>();
-app.UseHttpsRedirection();
+// Middleware de logging
 app.UseSerilogRequestLogging();
+
+// Middleware de redirecionamento HTTPS
+app.UseHttpsRedirection();
+
+// Middleware de roteamento (necessário para MapControllers funcionar)
+app.UseRouting();
+
+// Middleware de autenticação e autorização
+app.UseAuthentication();
 app.UseAuthorization();
 
+// Middleware personalizado (deve ser registrado após UseRouting)
+app.UseMiddleware<LogMiddleware>();
+
+// Mapear os endpoints dos controllers
 app.MapControllers();
 
+// Endpoint de teste
 app.MapGet("/error-test", () =>
 {
     throw new Exception("This is a test exception.");
