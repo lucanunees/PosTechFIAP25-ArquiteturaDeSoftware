@@ -24,14 +24,14 @@ namespace Infrastructure.Repository
 
         public void Delete(int id)
         {
-            _dbSet.Remove(GetId(id));
+            _dbSet.Remove(GetById(id));
             _context.SaveChanges();
         }
 
         public IList<T> GetAll()
             => _dbSet.ToList();
 
-        public T GetId(int id)
+        public T GetById(int id)
             => _dbSet.FirstOrDefault(entity => entity.Id == id);
 
         public void Update(T entity)

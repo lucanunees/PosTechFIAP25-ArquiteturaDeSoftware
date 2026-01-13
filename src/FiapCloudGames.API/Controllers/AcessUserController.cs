@@ -1,9 +1,7 @@
-﻿using FiapCloudGames.API.Controllers;
-using Domain.Repository;
-
-using Microsoft.AspNetCore.Mvc;
+﻿using Domain.Entity;
 using Domain.Input;
-using Domain.Entity;
+using FiapCloudGames.Application.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FiapCloudGames.API.Controllers
 {
@@ -11,11 +9,11 @@ namespace FiapCloudGames.API.Controllers
     [Route("api/[controller]")]
     public class AcessUserController : ControllerBase
     {
-        private readonly IAcessUserRepository _acessUserRepository;
-
-        public AcessUserController(IAcessUserRepository acessUserRepository)
+        private readonly IAcessUserService _acessUserService;
+        
+        public AcessUserController(IAcessUserService acessUserService)
         {
-            _acessUserRepository = acessUserRepository;
+            _acessUserService = acessUserService;
         }
 
         [HttpGet]
@@ -23,7 +21,7 @@ namespace FiapCloudGames.API.Controllers
         {
             try
             {
-                var acessUsers = _acessUserRepository.GetAll();
+                var acessUsers = _acessUserService.GetAllUsers();
                 return Ok(acessUsers);
             }
             catch (Exception ex)
@@ -37,12 +35,12 @@ namespace FiapCloudGames.API.Controllers
         {
             try
             {
-                var acessUser = _acessUserRepository.GetId(id);
-                if (acessUser == null)
+                var user = _acessUserService.GetUserById(id);
+                if (user == null)
                 {
                     return NotFound();
                 }
-                return Ok(acessUser);
+                return Ok(user);
             }
             catch (Exception ex)
             {
@@ -51,21 +49,18 @@ namespace FiapCloudGames.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] AcessUserInput input)
+        public async Task<IActionResult> Post([FromBody] AcessUserInput input)
         {
+            var users = await _acessUserService.GetAllUsers();
+            var user = users.FirstOrDefault(u => u.Username == input.Username && u.Email == input.Email);
+
+            if (user != null)
+                return BadRequest(new { message = "Usuário já está cadastrado!" });
+
             try
             {
-                var createUser = new AcessUser()
-                {
-                    Username = input.Username,
-                    Password = input.Password,
-                    Email = input.Email
-
-                };
-
-                _acessUserRepository.Create(createUser);
-
-                return CreatedAtAction(nameof(GetById), new { id = createUser.Id }, createUser);
+                var createdUser = await _acessUserService.CreateAcessUser(input);
+                return CreatedAtAction(nameof(GetById), new { id = createdUser.Id }, createdUser);
             }
             catch (Exception ex)
             {
