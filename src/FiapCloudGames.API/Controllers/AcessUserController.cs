@@ -1,5 +1,6 @@
 ﻿using FiapCloudGames.Application.Services.Interfaces;
 using FiapCloudGames.Domain.Request;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FiapCloudGames.API.Controllers
@@ -48,6 +49,7 @@ namespace FiapCloudGames.API.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Post([FromBody] UserRequest request)
         {
             var users = await _acessUserService.GetAllUsers();
