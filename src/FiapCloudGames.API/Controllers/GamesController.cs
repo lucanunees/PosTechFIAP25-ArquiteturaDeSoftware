@@ -1,5 +1,6 @@
 ﻿using FiapCloudGames.Application.Services.Interfaces;
 using FiapCloudGames.Domain.Request;
+using FiapCloudGames.Middleware;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FiapCloudGames.API.Controllers
@@ -9,6 +10,7 @@ namespace FiapCloudGames.API.Controllers
     public class GamesController : ControllerBase
     {
         private readonly IGameService _gamesService;
+        private readonly LoggerBase<GamesController> _logger;
 
         public GamesController(IGameService gamesService)
         {
@@ -25,6 +27,8 @@ namespace FiapCloudGames.API.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Erro ao consultar todos os jogos. [ {ex.Message} ]");
+
                 return BadRequest(ex);
             }
         }
@@ -37,12 +41,20 @@ namespace FiapCloudGames.API.Controllers
                 var game = _gamesService.GetGameById(id);
                 if (game == null)
                 {
+
+                    _logger.LogInformation($"Jogo não encontrado. Id: [ {id} ]");
+
                     return NotFound();
                 }
+
+                _logger.LogInformation($"Jogo encontrado. Nome: [ {game.Result.Name} ]");
+
                 return Ok(game);
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Erro ao consultar jogo. [ {ex.Message} ]");
+
                 return BadRequest(ex);
             }
         }
@@ -63,10 +75,13 @@ namespace FiapCloudGames.API.Controllers
 
                 _gamesService.CreateGame(game);
 
+                _logger.LogInformation($"Novo jogo incluído com sucesso.[ {game.Name} ]");
+
                 return Ok();
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Erro na inclusão do novo jogo. [ {ex.Message} ]");
 
                 return BadRequest(ex);
             }

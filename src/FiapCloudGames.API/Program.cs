@@ -2,6 +2,7 @@ using FiapCloudGames.Application.Services;
 using FiapCloudGames.Application.Services.Interfaces;
 using FiapCloudGames.Domain.Repository;
 using FiapCloudGames.Infrastructure.Repository;
+using FiapCloudGames.Middleware;
 using Infrastructure.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -37,7 +38,7 @@ builder.Services.AddSwaggerGen(options =>
         Description =
             "Plataforma de venda de jogos digitais e gest�o de servidores para partidas online \n\n" +
             "Contatos:\n\n" +
-            "- Joao Paulo\n\n" +
+            "- Joao Paulo RM 370112\n\n" +
             "- Lucas Nunes RM 369391\n\n" +
             "- Marcos Antonio RM 368502\n\n" +
             "- David RM 369381\n\n" +
@@ -59,11 +60,9 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IGamesRepository, GamesRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAcessUserRepository, AcessUserRepository>();
 
 builder.Services.AddScoped<IAcessUserService, AcessUserService>();
-builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
@@ -127,3 +126,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+#region [Middleware]
+builder.Services.AddCorrelationIdGenerator();
+builder.Services.AddTransient(typeof(LoggerBase<>));
+#endregion

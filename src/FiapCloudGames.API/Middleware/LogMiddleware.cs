@@ -1,4 +1,4 @@
-﻿namespace FiapCloudGames.API
+﻿namespace FiapCloudGames.API.Middleware
 {
     public class LogMiddleware
     {
