@@ -141,12 +141,12 @@ FiapCloudGames/
 
 ## 👥 Equipe do Projeto
 
-- **Joao Paulo**
+- **Joao Paulo** - RM: 370112
 - **Lucas Nunes** - RM 369391
 - **Marcos Antonio** - RM 368502
-- **David** - RM 369381
-- **Oberdan** - RM 369592
+- **David Pereira** - RM 369381
+- **Oberdan Padron** - RM 369592
 
 ---
 
-**Última Atualização**: 13 de janeiro de 2026
+**Última Atualização**: 14 de janeiro de 2026
