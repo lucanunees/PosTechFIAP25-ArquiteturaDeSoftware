@@ -44,6 +44,33 @@ builder.Services.AddSwaggerGen(options =>
             "- David RM 369381\n\n" +
             "- Oberdan RM 369592\n\n",
     });
+
+    // Esquema de segurança JWT (aparece o cadeado)
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Informe: Bearer {seu_token_jwt}"
+    });
+
+    // Requisito de segurança global (aplica o cadeado nos endpoints (todos))
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
 });
 
 #region [Configuracao do Entity Framework e SQL Server]
