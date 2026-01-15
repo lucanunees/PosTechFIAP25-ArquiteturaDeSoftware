@@ -114,7 +114,7 @@ builder.Services.AddAuthentication(options =>
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT Key is not configured.")))
     };
 });
 
@@ -145,6 +145,9 @@ if (app.Environment.IsDevelopment())
         c.SpecUrl = "/swagger/V1/swagger.json";
     });
 }
+
+// Middleware global para tratamento de erros
+app.UseExceptionHandler("/error");
 
 app.UseHttpsRedirection();
 
