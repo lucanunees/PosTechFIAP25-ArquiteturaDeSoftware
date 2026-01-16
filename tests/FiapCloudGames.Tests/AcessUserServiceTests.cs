@@ -38,7 +38,7 @@ public class AcessUserServiceTests
     }
 
     [Fact]
-    public async Task GetUserById_DeveRetornarListaUsuario_QuandoUsuarioExistir()
+    public async Task GetUserById_DeveRetornarUsuario_QuandoIdUsuarioExistir()
     {
         // Arrange
         var userId = 1;
