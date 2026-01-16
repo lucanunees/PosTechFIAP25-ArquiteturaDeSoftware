@@ -26,7 +26,7 @@ namespace FiapCloudGames.Application.Services
             return user;
         }
 
-        public async Task<AcessUser> CreateAcessUser(UserRequest request)
+        public async Task<AcessUser> CreateAcessUser(AcessUserRequest request)
         {
             try
             {

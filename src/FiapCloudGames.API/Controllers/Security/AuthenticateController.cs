@@ -1,5 +1,6 @@
 ﻿using FiapCloudGames.Application.Services.Interfaces;
 using FiapCloudGames.Domain.Request;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,12 +8,13 @@ namespace FiapCloudGames.API.Controllers.Security
 {
     [ApiController]
     [Route("[controller]")]
-    public class AuthenticateController(IUserService userService,
+    public class AuthenticateController(IAcessUserService userService,
     ITokenService tokenService) : ControllerBase
     {
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(UserRequest acessUser)
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(AcessUserRequest acessUser)
         {
             var users = await userService.GetAllUsers();
             var user = users.FirstOrDefault(u => u.Username == acessUser.Username && u.Email == acessUser.Email);

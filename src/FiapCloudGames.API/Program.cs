@@ -36,7 +36,7 @@ builder.Services.AddSwaggerGen(options =>
         Title = "FIAP Cloud Games (FCG)",
         Version = "V1",
         Description =
-            "Plataforma de venda de jogos digitais e gest�o de servidores para partidas online \n\n" +
+            "Plataforma de venda de jogos digitais e gestao de servidores para partidas online \n\n" +
             "Contatos:\n\n" +
             "- Joao Paulo RM 370112\n\n" +
             "- Lucas Nunes RM 369391\n\n" +
@@ -73,6 +73,12 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+#region [Middleware]
+builder.Services.AddCorrelationIdGenerator();
+builder.Services.AddTransient(typeof(LoggerBase<>));
+#endregion
+
+
 #region [Configuracao do Entity Framework e SQL Server]
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
@@ -83,17 +89,24 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     //options.UseSqlServer(configuration.GetConnectionString("DockerConnectionString"));
 }, ServiceLifetime.Scoped);
 
+#endregion
+
+
+#region [Injecao de Dependencia]
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IGamesRepository, GamesRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IAcessUserRepository, AcessUserRepository>();
+builder.Services.AddScoped<IPromotionRepository, PromotionRepository>();
+
 
 builder.Services.AddScoped<IAcessUserService, AcessUserService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IPromotionService, PromotionService>();
 #endregion
 
 
@@ -154,7 +167,3 @@ app.MapControllers();
 
 app.Run();
 
-#region [Middleware]
-builder.Services.AddCorrelationIdGenerator();
-builder.Services.AddTransient(typeof(LoggerBase<>));
-#endregion

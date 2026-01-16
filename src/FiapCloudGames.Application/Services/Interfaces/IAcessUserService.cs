@@ -9,7 +9,7 @@ namespace FiapCloudGames.Application.Services.Interfaces
 
         Task<AcessUser> GetUserById(int id);
 
-        Task<AcessUser> CreateAcessUser(UserRequest acessUser);
+        Task<AcessUser> CreateAcessUser(AcessUserRequest acessUser);
 
     }
 }
