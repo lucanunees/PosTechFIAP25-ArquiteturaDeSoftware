@@ -26,7 +26,7 @@ namespace FiapCloudGames.Application.Services
             return user;
         }
 
-        public async Task<AcessUser> CreateAcessUser(UserRequest request)
+        public async Task<AcessUser> CreateAcessUser(AcessUserRequest request)
         {
             try
             {
@@ -50,5 +50,15 @@ namespace FiapCloudGames.Application.Services
                 throw;
             }
         }
+
+        public Task<bool> DeleteAsync(int id)
+        {
+            var existing = _acessUserRepository.GetById(id);
+            if (existing is null) return Task.FromResult(false);
+
+            _acessUserRepository.Delete(id);
+            return Task.FromResult(true);
+        }
+
     }
 }

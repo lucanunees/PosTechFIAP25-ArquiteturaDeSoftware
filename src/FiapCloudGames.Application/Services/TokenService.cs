@@ -10,7 +10,7 @@ namespace FiapCloudGames.Application.Services
 {
     public class TokenService(IConfiguration configuration) : ITokenService
     {
-        public string GenereteToken(User user)
+        public string GenereteToken(AcessUser user)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
