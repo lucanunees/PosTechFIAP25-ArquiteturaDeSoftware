@@ -11,5 +11,6 @@ namespace FiapCloudGames.Application.Services.Interfaces
 
         Task<AcessUser> CreateAcessUser(AcessUserRequest acessUser);
 
+        Task<bool> DeleteAsync(int id);
     }
 }
