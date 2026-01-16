@@ -20,7 +20,7 @@ namespace FiapCloudGames.Tests
         public void UserRequest_ValidarDados_DeveNaoTerValidacoesComErro()
         {
             // Arrange
-            var request = new UserRequest
+            var request = new AcessUserRequest
             {
                 Username = "usuario123",
                 Email = "teste@email.com",
@@ -41,7 +41,7 @@ namespace FiapCloudGames.Tests
         public void UserRequest_UsernameInvalido_DeveRetornarMensagemDeErro(string username, string expectedError)
         {
             // Arrange
-            var request = new UserRequest { Username = username, Email = "valid@mail.com", Password = "Valid@123" };
+            var request = new AcessUserRequest { Username = username, Email = "valid@mail.com", Password = "Valid@123" };
 
             // Act
             var errors = ValidateModel(request);
@@ -56,7 +56,7 @@ namespace FiapCloudGames.Tests
         public void UserRequest_EmailInvalido_DeveRetornarMensagemDeErro(string email, string expectedError)
         {
             // Arrange
-            var request = new UserRequest { Username = "User", Email = email, Password = "Senha@123" };
+            var request = new AcessUserRequest { Username = "User", Email = email, Password = "Senha@123" };
 
             // Act
             var errors = ValidateModel(request);
@@ -74,7 +74,7 @@ namespace FiapCloudGames.Tests
         public void UserRequest_InvalidPassword_ShouldReturnErrorMessage(string password, string expectedError)
         {
             // Arrange
-            var request = new UserRequest { Username = "User", Email = "user@email.com", Password = password };
+            var request = new AcessUserRequest { Username = "User", Email = "user@email.com", Password = password };
 
             // Act
             var errors = ValidateModel(request);
