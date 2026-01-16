@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FiapCloudGames.Domain.Request
 {
-    public class UserRequest
+    public class AcessUserRequest
     {
         [Required(ErrorMessage = "O username é obrigatório.")]
         [StringLength(100, MinimumLength = 3, ErrorMessage = "O nome deve ter entre 3 e 100 caracteres.")]

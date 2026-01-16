@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using FiapCloudGames.Application.Services.Interfaces;
 using FiapCloudGames.Domain.Request;
 using Microsoft.AspNetCore.Authorization;
@@ -8,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FiapCloudGames.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [Authorize(Policy = "Admin")]
     public class PromotionController : ControllerBase
     {

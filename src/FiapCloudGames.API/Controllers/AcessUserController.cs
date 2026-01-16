@@ -50,7 +50,7 @@ namespace FiapCloudGames.API.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Post([FromBody] UserRequest request)
+        public async Task<IActionResult> Post([FromBody] AcessUserRequest request)
         {
             var users = await _acessUserService.GetAllUsers();
             var user = users.FirstOrDefault(u => u.Username == request.Username && u.Email == request.Email);
