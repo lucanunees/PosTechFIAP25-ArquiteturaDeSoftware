@@ -71,7 +71,7 @@ namespace FiapCloudGames.Tests
         [InlineData("soletra", "A senha deve conter letras, números e pelo menos um caractere especial.")]
         [InlineData("12345678", "A senha deve conter letras, números e pelo menos um caractere especial.")]
         [InlineData("Senha123", "A senha deve conter letras, números e pelo menos um caractere especial.")]
-        public void UserRequest_InvalidPassword_ShouldReturnErrorMessage(string password, string expectedError)
+        public void UserRequest_SenhaInvalida_DeveRetornarErroMensagem(string password, string expectedError)
         {
             // Arrange
             var request = new AcessUserRequest { Username = "User", Email = "user@email.com", Password = password };
