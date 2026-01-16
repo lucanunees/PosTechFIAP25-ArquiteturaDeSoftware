@@ -42,7 +42,7 @@ builder.Services.AddSwaggerGen(options =>
             "- Lucas Nunes RM 369391\n\n" +
             "- Marcos Antonio RM 368502\n\n" +
             "- David RM 369381\n\n" +
-            "- Oberdan RM 369592\n\n",
+            "- Oberdan Padron Santana RM 369592\n\n",
     });
 
     // Esquema de segurança JWT (aparece o cadeado)
@@ -73,12 +73,6 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-#region [Middleware]
-builder.Services.AddCorrelationIdGenerator();
-builder.Services.AddTransient(typeof(LoggerBase<>));
-#endregion
-
-
 #region [Configuracao do Entity Framework e SQL Server]
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
@@ -90,7 +84,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 }, ServiceLifetime.Scoped);
 
 #endregion
-
 
 #region [Injecao de Dependencia]
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
@@ -107,6 +100,11 @@ builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IPromotionService, PromotionService>();
+#endregion
+
+#region [Middleware]
+builder.Services.AddCorrelationIdGenerator();
+builder.Services.AddTransient(typeof(LoggerBase<>));
 #endregion
 
 

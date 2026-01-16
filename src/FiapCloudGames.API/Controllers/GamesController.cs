@@ -1,6 +1,5 @@
 ﻿using FiapCloudGames.Application.Services.Interfaces;
 using FiapCloudGames.Domain.Request;
-using FiapCloudGames.Middleware;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FiapCloudGames.API.Controllers
@@ -10,19 +9,23 @@ namespace FiapCloudGames.API.Controllers
     public class GamesController : ControllerBase
     {
         private readonly IGameService _gamesService;
-        private readonly LoggerBase<GamesController> _logger;
+        private readonly ILogger<AcessUserController> _logger;
 
-        public GamesController(IGameService gamesService)
+        public GamesController(IGameService gamesService, ILogger<AcessUserController> logger)
         {
             _gamesService = gamesService;
+            _logger = logger;
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
             try
             {
-                var games = _gamesService.GetAll();
+                var games = await _gamesService.GetAll();
+
+                _logger.LogInformation("Lista de todos jodos retornada com sucesso.");
+
                 return Ok(games);
             }
             catch (Exception ex)
@@ -34,20 +37,20 @@ namespace FiapCloudGames.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById([FromRoute] int id)
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
             try
             {
-                var game = _gamesService.GetGameById(id);
+                var game = await _gamesService.GetGameById(id);
+
                 if (game == null)
                 {
-
-                    _logger.LogInformation($"Jogo não encontrado. Id: [ {id} ]");
+                    _logger.LogInformation($"Jogo id: [ {id} ] não encontrado na base de dados.");
 
                     return NotFound();
                 }
 
-                _logger.LogInformation($"Jogo encontrado. Nome: [ {game.Result.Name} ]");
+                _logger.LogInformation($"Jogo encontrado. Nome: [ {game.Name} ]");
 
                 return Ok(game);
             }
@@ -60,7 +63,7 @@ namespace FiapCloudGames.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] GameRequest request)
+        public async Task<IActionResult> Post([FromBody] GameRequest request)
         {
             try
             {
@@ -73,7 +76,7 @@ namespace FiapCloudGames.API.Controllers
                     ReleaseDate = request.ReleaseDate
                 };
 
-                _gamesService.CreateGame(game);
+                await _gamesService.CreateGame(game);
 
                 _logger.LogInformation($"Novo jogo incluído com sucesso.[ {game.Name} ]");
 
