@@ -8,7 +8,10 @@ Este repositório contém a implementação da Fase 1 do Tech Challenge — FIAP
 A FIAP Cloud Games (FCG) será uma plataforma de venda de jogos
 digitais e gestão de servidores para partidas online.
 Nesta etapa, desenvolvemos um serviço de cadastro e autenticação de usuários e uma biblioteca de jogos adquiridos.
-Event Storming: https://miro.com/welcomeonboard/K2dtdEFXQmZjUmFXRTFoMmJpMnhlbVBjQ0svcHdWT2lUbW41YURuUEFEU2VwbmdSK1BxZVA4MkdZV2NzNEg3MHdVM00xb0lXcWNtS1hlOER0RnczMjlLTDgzS2thK2FIQnBJQkRleitOSGNpUncyYXlTSGJCaVhWYm9WanBKblVyVmtkMG5hNDA3dVlncnBvRVB2ZXBnPT0hdjE=?share_link_id=230301566427
+
+
+Event Storming: 
+https://miro.com/welcomeonboard/K2dtdEFXQmZjUmFXRTFoMmJpMnhlbVBjQ0svcHdWT2lUbW41YURuUEFEU2VwbmdSK1BxZVA4MkdZV2NzNEg3MHdVM00xb0lXcWNtS1hlOER0RnczMjlLTDgzS2thK2FIQnBJQkRleitOSGNpUncyYXlTSGJCaVhWYm9WanBKblVyVmtkMG5hNDA3dVlncnBvRVB2ZXBnPT0hdjE=?share_link_id=230301566427
 ## 🧠 Objetivos da Fase 1
 - Criar uma API REST em .NET 8.
 - Garantir persistência de dados, segurança e qualidade de software.
